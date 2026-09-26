@@ -5,8 +5,10 @@
 Clona el repositorio en tu máquina local y accede al directorio del proyecto:
 
 ```bash
-git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
-cd TU_REPOSITORIO
+git clone https://github.com/ferfigueirido1/MUniCS-SI-Lab-I.git
+
+
+cd MUniCS-SI-Lab-I.git
 ```
 
 ---
@@ -18,7 +20,7 @@ Por motivos evidentes de seguridad, este repositorio no incluye ninguna clave pr
 Para poder ejecutar el cliente, es obligatorio generar un par de claves RSA (módulo de 4096 bits) mediante el comando `ssh-keygen`:
 
 ```bash
-ssh-keygen -t rsa -b 4096 -m PEM -f id_rsa -N ""
+ssh-keygen -t rsa -b 4096
 ```
 
 > **Nota:** Este comando creará dos archivos en el directorio actual:
