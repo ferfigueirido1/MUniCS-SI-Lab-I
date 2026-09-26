@@ -127,7 +127,7 @@ def cifrar_salto(public_key, datos_bytes):
 
 def descifrar_salto(private_key, mensaje_cifrado):
     # Calcula la longitud en bytes del que separa la clave simétrica cifrada del mensaje cifrado y los segmenta
-    len_c1 = (private_key.key_size + 7) // 8
+    len_c1 = private_key.key_size // 8
     c1 = mensaje_cifrado[:len_c1]
     c2 = mensaje_cifrado[len_c1:]
 
@@ -161,16 +161,15 @@ def construir_onion(ruta_ids, ruta_public_keys, mi_id, mensaje_texto, anonimo=Fa
 
     return c
 
-
-def on_connect(client, userdata, flags, rc):
-    if rc == 0:
+def on_connect(client, userdata, flags, reason_code, properties=None):
+    if reason_code == 0:
         print(f"[MQTT] Conectado con éxito. Escuchando en el canal: '{MI_ID}'")
         # Se suscribe al tópico con el user-id para recibir paquetes
         client.subscribe(MI_ID)
         # Desbloquea el hilo de la consola principal una vez conectado
         evento_conectado.set()
     else:
-        print(f"\n[MQTT] Error de conexión, código: {rc}")
+        print(f"\n[MQTT] Error de conexión, código: {reason_code}")
 
 
 def on_message(client, userdata, msg):
@@ -218,7 +217,7 @@ claves_publicas_red[MI_ID] = cargar_clave_publica("id_rsa.pub")
 
 if __name__ == "__main__":
     try:
-        cliente = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+        cliente = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     except AttributeError:
         cliente = mqtt.Client()
 
